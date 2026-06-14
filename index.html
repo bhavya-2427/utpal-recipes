@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTPAL Recipes — From the Heart of Odisha</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #FBF7F0;
+    color: #2E2008;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: #1A1208;
+    padding: 18px 20px 14px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    letter-spacing: 6px;
+    color: #EF9F27;
+    font-weight: 600;
+  }
+  .header-tag {
+    font-size: 10px;
+    color: #A08060;
+    letter-spacing: 2px;
+    margin-top: 3px;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #2E1A08 0%, #4A2C0A 100%);
+    padding: 36px 24px 32px;
+    text-align: center;
+  }
+  .hero-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #EF9F27;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #FBF7F0;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .hero-sub {
+    font-size: 13px;
+    color: #C09060;
+    line-height: 1.6;
+  }
+  .odisha-line {
+    margin-top: 16px;
+    font-size: 11px;
+    color: #7A5A30;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  .filter-wrap {
+    padding: 16px 20px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .filter-wrap::-webkit-scrollbar { display: none; }
+  .filters {
+    display: flex;
+    gap: 8px;
+    width: max-content;
+  }
+  .filter-btn {
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1px solid #D4B896;
+    background: transparent;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    color: #7A5A30;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .filter-btn.active {
+    background: #1A1208;
+    border-color: #1A1208;
+    color: #EF9F27;
+  }
+
+  .section-head {
+    padding: 24px 20px 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2E1A08;
+  }
+  .section-head .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #EF9F27;
+    flex-shrink: 0;
+  }
+  .section-sub {
+    font-size: 12px;
+    color: #A08060;
+    padding: 0 20px 16px;
+  }
+
+  .cards {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(30,12,0,0.08);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .card:active { transform: scale(0.98); }
+
+  .card-img-placeholder {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+  }
+
+  .card-body { padding: 16px; }
+  .card-meta {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .tag-odia { background: #FFF0D6; color: #854F0B; border: 1px solid #EF9F2750; }
+  .tag-maida { background: #E1F5EE; color: #0F6E56; border: 1px solid #1D9E7540; }
+  .tag-aata { background: #EAF3DE; color: #3B6D11; border: 1px solid #63992240; }
+  .tag-sooji { background: #E6F1FB; color: #185FA5; border: 1px solid #378ADD40; }
+  .tag-sweet { background: #FBEAF0; color: #993556; border: 1px solid #D4537E40; }
+  .tag-festival { background: #FAEEDA; color: #854F0B; border: 1px solid #EF9F2760; }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1A1208;
+    margin-bottom: 6px;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: #7A5A30;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #F0E6D4;
+    padding-top: 12px;
+  }
+  .card-info {
+    display: flex;
+    gap: 14px;
+  }
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #A08060;
+  }
+  .info-dot { width: 4px; height: 4px; border-radius: 50%; background: #EF9F27; }
+  .card-btn {
+    font-size: 12px;
+    font-weight: 600;
+    color: #EF9F27;
+    background: none;
+    border: 1.5px solid #EF9F27;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+  .card-btn:active { background: #EF9F27; color: #fff; }
+
+  .recipe-detail {
+    display: none;
+    background: #FFFFFF;
+    margin: 20px 16px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(30,12,0,0.12);
+  }
+  .recipe-detail.open { display: block; }
+
+  .detail-img-placeholder {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+  }
+
+  .detail-body { padding: 20px; }
+  .detail-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1A1208;
+    margin-bottom: 6px;
+  }
+  .detail-desc {
+    font-size: 14px;
+    color: #7A5A30;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .detail-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .stat-box {
+    background: #FBF7F0;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+  }
+  .stat-val {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1A1208;
+  }
+  .stat-label {
+    font-size: 10px;
+    color: #A08060;
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1A1208;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #EF9F27;
+    display: inline-block;
+  }
+
+  .ingredients-list {
+    list-style: none;
+    margin-bottom: 20px;
+  }
+  .ingredients-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #F5EDE0;
+    font-size: 14px;
+    color: #2E1A08;
+  }
+  .ing-bullet {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #EF9F27;
+    flex-shrink: 0;
+  }
+  .ing-amount {
+    font-weight: 500;
+    color: #854F0B;
+    min-width: 80px;
+    font-size: 13px;
+  }
+
+  .steps-list { list-style: none; margin-bottom: 20px; }
+  .step-item { display: flex; gap: 14px; margin-bottom: 16px; }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #1A1208;
+    color: #EF9F27;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text {
+    font-size: 14px;
+    color: #2E1A08;
+    line-height: 1.7;
+    padding-top: 3px;
+  }
+
+  .utpal-note {
+    background: #FFF8EC;
+    border: 1px solid #EF9F2760;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 13px;
+    color: #854F0B;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .utpal-note strong { font-weight: 600; }
+
+  .close-btn {
+    width: 100%;
+    padding: 14px;
+    background: #1A1208;
+    color: #EF9F27;
+    border: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 20px 0;
+  }
+  .divider-line { flex: 1; height: 1px; background: #D4B896; }
+  .divider-text {
+    font-size: 11px;
+    color: #A08060;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .footer {
+    background: #1A1208;
+    margin-top: 36px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    letter-spacing: 5px;
+    color: #EF9F27;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: #7A5A30;
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+  .footer-products {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .fp { font-size: 11px; color: #A08060; background: #2E1A08; padding: 4px 12px; border-radius: 20px; }
+  .footer-copy { font-size: 11px; color: #5A3A18; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">U T P A L</div>
+  <div class="header-tag">FROM THE HEART OF ODISHA</div>
+</header>
+
+<section class="hero">
+  <div class="hero-label">Our Recipes</div>
+  <h1 class="hero-title">Taste the Story<br>of Odisha</h1>
+  <p class="hero-sub">Recipes crafted with UTPAL Aata, Maida & Sooji —<br>from our kitchen to yours</p>
+  <p class="odisha-line">Purity in Every Grain</p>
+</section>
+
+<div class="filter-wrap">
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterCards('all', this)">All Recipes</button>
+    <button class="filter-btn" onclick="filterCards('odia', this)">Odia Recipes</button>
+    <button class="filter-btn" onclick="filterCards('aata', this)">Aata</button>
+    <button class="filter-btn" onclick="filterCards('maida', this)">Maida</button>
+    <button class="filter-btn" onclick="filterCards('sooji', this)">Sooji</button>
+    <button class="filter-btn" onclick="filterCards('festival', this)">Festival</button>
+  </div>
+</div>
+
+<div class="section-head">
+  <div class="dot"></div>
+  <h2>Odia Heritage Recipes</h2>
+</div>
+<p class="section-sub">Traditional recipes from Odisha's rich food culture</p>
+
+<div class="cards" id="cards-container">
+
+  <div class="card" data-tags="odia maida sweet festival">
+    <div class="card-img-placeholder" style="background:#FFF3E0;">🍩</div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="tag tag-odia">Odia Classic</span>
+        <span class="tag tag-maida">Maida</span>
+        <span class="tag tag-sweet">Sweet</span>
+      </div>
+      <div class="card-title">Kakara Pitha</div>
+      <div class="card-desc">Golden fried sweet cakes — a beloved Odia festival dish made with UTPAL Maida and jaggery filling. Crispy outside, soft and sweet inside.</div>
+      <div class="card-footer">
+        <div class="card-info">
+          <div class="info-item"><div class="info-dot"></div> 30 min</div>
+          <div class="info-item"><div class="info-dot"></div> Easy</div>
+          <div class="info-item"><div class="info-dot"></div> 8 pieces</div>
+        </div>
+        <button class="card-btn" onclick="openRecipe('kakara')">View Recipe</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="aata everyday">
+    <div class="card-img-placeholder" style="background:#F5F0E0;">🫓</div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="tag tag-aata">Aata</span>
+      </div>
+      <div class="card-title">Soft Fulka Roti</div>
+      <div class="card-desc">Soft, puffed rotis made with UTPAL whole wheat Aata. Stone-milled flour gives an earthy, wholesome taste that makes every meal special.</div>
+      <div class="card-footer">
+        <div class="card-info">
+          <div class="info-item"><div class="info-dot"></div> 20 min</div>
+          <div class="info-item"><div class="info-dot"></div> Easy</div>
+          <div class="info-item"><div class="info-dot"></div> 6 rotis</div>
+        </div>
+        <button class="card-btn" onclick="openRecipe('roti')">View Recipe</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="sooji sweet odia festival">
+    <div class="card-img-placeholder" style="background:#FFF8E6;">🍮</div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="tag tag-odia">Odia Style</span>
+        <span class="tag tag-sooji">Sooji</span>
+        <span class="tag tag-festival">Festival</span>
+      </div>
+      <div class="card-title">Sooji Halwa</div>
+      <div class="card-desc">Rich, aromatic semolina halwa made Odia style — generous ghee, cashews, and cardamom. A festive staple for Durga Puja and Diwali.</div>
+      <div class="card-footer">
+        <div class="card-info">
+          <div class="info-item"><div class="info-dot"></div> 20 min</div>
+          <div class="info-item"><div class="info-dot"></div> Easy</div>
+          <div class="info-item"><div class="info-dot"></div> 4 servings</div>
+        </div>
+        <button class="card-btn" onclick="openRecipe('halwa')">View Recipe</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="odia maida sweet festival">
+    <div class="card-img-placeholder" style="background:#F0F8F0;">🥟</div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="tag tag-odia">Odia Classic</span>
+        <span class="tag tag-maida">Maida</span>
+        <span class="tag tag-festival">Festival</span>
+      </div>
+      <div class="card-title">Manda Pitha</div>
+      <div class="card-desc">Steamed coconut-jaggery dumplings wrapped in a soft maida cover. Made during Raja Parba — Odisha's beloved harvest festival.</div>
+      <div class="card-footer">
+        <div class="card-info">
+          <div class="info-item"><div class="info-dot"></div> 45 min</div>
+          <div class="info-item"><div class="info-dot"></div> Medium</div>
+          <div class="info-item"><div class="info-dot"></div> 10 pieces</div>
+        </div>
+        <button class="card-btn" onclick="openRecipe('manda')">View Recipe</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-tags="sooji everyday">
+    <div class="card-img-placeholder" style="background:#FFF5E6;">🥘</div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="tag tag-sooji">Sooji</span>
+      </div>
+      <div class="card-title">Rava Upma</div>
+      <div class="card-desc">A quick, nourishing breakfast made with UTPAL Sooji, mustard seeds, curry leaves, and vegetables. Ready in 15 minutes.</div>
+      <div class="card-footer">
+        <div class="card-info">
+          <div class="info-item"><div class="info-dot"></div> 15 min</div>
+          <div class="info-item"><div class="info-dot"></div> Easy</div>
+          <div class="info-item"><div class="info-dot"></div> 2 servings</div>
+        </div>
+        <button class="card-btn" onclick="openRecipe('upma')">View Recipe</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- RECIPE DETAILS -->
+
+<div class="recipe-detail" id="detail-kakara">
+  <div class="detail-img-placeholder" style="background:#FFF3E0;">🍩</div>
+  <div class="detail-body">
+    <div class="detail-title">Kakara Pitha</div>
+    <p class="detail-desc">Kakara Pitha is one of Odisha's most loved traditional sweets — golden, crispy fried cakes with a soft coconut-jaggery filling. Made during Nuakhai, Raja Parba and other festivals.</p>
+    <div class="detail-stats">
+      <div class="stat-box"><div class="stat-val">30</div><div class="stat-label">Minutes</div></div>
+      <div class="stat-box"><div class="stat-val">8</div><div class="stat-label">Pieces</div></div>
+      <div class="stat-box"><div class="stat-val">Easy</div><div class="stat-label">Level</div></div>
+    </div>
+    <div class="section-heading">Ingredients</div>
+    <ul class="ingredients-list">
+      <li><div class="ing-bullet"></div><span class="ing-amount">2 cups</span> UTPAL Maida</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">1 cup</span> Grated coconut</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">¾ cup</span> Jaggery (grated)</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">½ tsp</span> Cardamom powder</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">Pinch</span> Salt</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">As needed</span> Water (for dough)</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">As needed</span> Oil (for frying)</li>
+    </ul>
+    <div class="section-heading">Steps</div>
+    <ul class="steps-list">
+      <li class="step-item"><div class="step-num">1</div><div class="step-text">Mix grated coconut and jaggery in a pan on low flame. Stir until jaggery melts and mixture thickens. Add cardamom. Cool — this is your filling.</div></li>
+      <li class="step-item"><div class="step-num">2</div><div class="step-text">Make smooth, firm dough using UTPAL Maida, salt, and just enough water. Rest 10 minutes.</div></li>
+      <li class="step-item"><div class="step-num">3</div><div class="step-text">Divide dough into small balls. Flatten each into a small circle. Place a spoonful of filling in the centre.</div></li>
+      <li class="step-item"><div class="step-num">4</div><div class="step-text">Fold edges over the filling and seal. Gently flatten into a round shape.</div></li>
+      <li class="step-item"><div class="step-num">5</div><div class="step-text">Deep fry on medium flame until golden brown on both sides. Drain on paper. Serve warm.</div></li>
+    </ul>
+    <div class="utpal-note"><strong>UTPAL Tip:</strong> UTPAL Maida gives Kakara Pitha the perfect crisp texture. Knead the dough well for best results.</div>
+    <button class="close-btn" onclick="closeRecipe('kakara')">← Back to Recipes</button>
+  </div>
+</div>
+
+<div class="recipe-detail" id="detail-roti">
+  <div class="detail-img-placeholder" style="background:#F5F0E0;">🫓</div>
+  <div class="detail-body">
+    <div class="detail-title">Soft Fulka Roti</div>
+    <p class="detail-desc">Simple, soft, puffed rotis — a daily staple. UTPAL Aata stone-milled from Odisha's finest wheat gives these rotis a rich, wholesome flavour.</p>
+    <div class="detail-stats">
+      <div class="stat-box"><div class="stat-val">20</div><div class="stat-label">Minutes</div></div>
+      <div class="stat-box"><div class="stat-val">6</div><div class="stat-label">Rotis</div></div>
+      <div class="stat-box"><div class="stat-val">Easy</div><div class="stat-label">Level</div></div>
+    </div>
+    <div class="section-heading">Ingredients</div>
+    <ul class="ingredients-list">
+      <li><div class="ing-bullet"></div><span class="ing-amount">2 cups</span> UTPAL Aata</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">¾ cup</span> Warm water</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">½ tsp</span> Salt</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">1 tsp</span> Oil (optional)</li>
+    </ul>
+    <div class="section-heading">Steps</div>
+    <ul class="steps-list">
+      <li class="step-item"><div class="step-num">1</div><div class="step-text">Add salt to UTPAL Aata. Slowly add warm water and knead into a soft, smooth dough. Rest under a damp cloth for 15 minutes.</div></li>
+      <li class="step-item"><div class="step-num">2</div><div class="step-text">Divide into 6 equal balls. Dust with dry aata and roll each into a thin, even circle.</div></li>
+      <li class="step-item"><div class="step-num">3</div><div class="step-text">Heat tawa on medium-high. Cook until small bubbles appear, flip, cook the other side briefly.</div></li>
+      <li class="step-item"><div class="step-num">4</div><div class="step-text">Move to direct flame — it will puff up. Apply ghee and serve hot.</div></li>
+    </ul>
+    <div class="utpal-note"><strong>UTPAL Tip:</strong> Resting the dough is important — it makes rotis softer and easier to roll. UTPAL Aata's natural texture makes a big difference.</div>
+    <button class="close-btn" onclick="closeRecipe('roti')">← Back to Recipes</button>
+  </div>
+</div>
+
+<div class="recipe-detail" id="detail-halwa">
+  <div class="detail-img-placeholder" style="background:#FFF8E6;">🍮</div>
+  <div class="detail-body">
+    <div class="detail-title">Sooji Halwa</div>
+    <p class="detail-desc">Rich, aromatic semolina halwa — made Odia style with generous ghee, cashews, and cardamom. Offered as prasad during Durga Puja and every celebration.</p>
+    <div class="detail-stats">
+      <div class="stat-box"><div class="stat-val">20</div><div class="stat-label">Minutes</div></div>
+      <div class="stat-box"><div class="stat-val">4</div><div class="stat-label">Servings</div></div>
+      <div class="stat-box"><div class="stat-val">Easy</div><div class="stat-label">Level</div></div>
+    </div>
+    <div class="section-heading">Ingredients</div>
+    <ul class="ingredients-list">
+      <li><div class="ing-bullet"></div><span class="ing-amount">1 cup</span> UTPAL Sooji</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">¾ cup</span> Sugar</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">3 cups</span> Water</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">4 tbsp</span> Ghee</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">10</span> Cashews</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">1 tsp</span> Cardamom powder</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">Few strands</span> Saffron (optional)</li>
+    </ul>
+    <div class="section-heading">Steps</div>
+    <ul class="steps-list">
+      <li class="step-item"><div class="step-num">1</div><div class="step-text">Heat ghee in a heavy pan. Fry cashews until golden, remove and keep aside.</div></li>
+      <li class="step-item"><div class="step-num">2</div><div class="step-text">In same ghee, add UTPAL Sooji. Roast on low flame, stirring continuously, for 8–10 minutes until golden and fragrant.</div></li>
+      <li class="step-item"><div class="step-num">3</div><div class="step-text">Boil water and sugar together until sugar dissolves.</div></li>
+      <li class="step-item"><div class="step-num">4</div><div class="step-text">Carefully add hot sugar water to roasted sooji — stir quickly. Add cardamom and saffron.</div></li>
+      <li class="step-item"><div class="step-num">5</div><div class="step-text">Cook until halwa thickens and leaves sides of pan. Top with cashews. Serve warm.</div></li>
+    </ul>
+    <div class="utpal-note"><strong>UTPAL Tip:</strong> Roasting UTPAL Sooji slowly in ghee is the most important step — this is what gives the halwa its deep, nutty aroma.</div>
+    <button class="close-btn" onclick="closeRecipe('halwa')">← Back to Recipes</button>
+  </div>
+</div>
+
+<div class="recipe-detail" id="detail-manda">
+  <div class="detail-img-placeholder" style="background:#F0F8F0;">🥟</div>
+  <div class="detail-body">
+    <div class="detail-title">Manda Pitha</div>
+    <p class="detail-desc">Steamed sweet dumplings filled with coconut and jaggery — a treasured Odia recipe made during Raja Parba, Odisha's harvest festival.</p>
+    <div class="detail-stats">
+      <div class="stat-box"><div class="stat-val">45</div><div class="stat-label">Minutes</div></div>
+      <div class="stat-box"><div class="stat-val">10</div><div class="stat-label">Pieces</div></div>
+      <div class="stat-box"><div class="stat-val">Medium</div><div class="stat-label">Level</div></div>
+    </div>
+    <div class="section-heading">Ingredients</div>
+    <ul class="ingredients-list">
+      <li><div class="ing-bullet"></div><span class="ing-amount">1½ cups</span> UTPAL Maida</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">1 cup</span> Grated coconut</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">½ cup</span> Jaggery</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">½ tsp</span> Cardamom powder</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">1 tbsp</span> Ghee</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">Pinch</span> Salt</li>
+    </ul>
+    <div class="section-heading">Steps</div>
+    <ul class="steps-list">
+      <li class="step-item"><div class="step-num">1</div><div class="step-text">Cook coconut and jaggery together on low flame until thick. Add cardamom. Cool completely.</div></li>
+      <li class="step-item"><div class="step-num">2</div><div class="step-text">Mix UTPAL Maida with salt and ghee. Add warm water gradually to form a smooth, soft dough. Rest 10 minutes.</div></li>
+      <li class="step-item"><div class="step-num">3</div><div class="step-text">Flatten each dough ball into a circle. Place filling in centre, fold and seal edges into a half-moon shape.</div></li>
+      <li class="step-item"><div class="step-num">4</div><div class="step-text">Steam for 12–15 minutes until outer cover turns slightly translucent. Brush with ghee. Serve warm.</div></li>
+    </ul>
+    <div class="utpal-note"><strong>UTPAL Tip:</strong> Seal the edges firmly or filling will leak during steaming. UTPAL Maida's smooth texture makes it easy to work with.</div>
+    <button class="close-btn" onclick="closeRecipe('manda')">← Back to Recipes</button>
+  </div>
+</div>
+
+<div class="recipe-detail" id="detail-upma">
+  <div class="detail-img-placeholder" style="background:#FFF5E6;">🥘</div>
+  <div class="detail-body">
+    <div class="detail-title">Rava Upma</div>
+    <p class="detail-desc">A quick, wholesome breakfast with UTPAL Sooji, mustard seeds, curry leaves, and vegetables. Nutritious, filling, ready in under 15 minutes.</p>
+    <div class="detail-stats">
+      <div class="stat-box"><div class="stat-val">15</div><div class="stat-label">Minutes</div></div>
+      <div class="stat-box"><div class="stat-val">2</div><div class="stat-label">Servings</div></div>
+      <div class="stat-box"><div class="stat-val">Easy</div><div class="stat-label">Level</div></div>
+    </div>
+    <div class="section-heading">Ingredients</div>
+    <ul class="ingredients-list">
+      <li><div class="ing-bullet"></div><span class="ing-amount">1 cup</span> UTPAL Sooji</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">2 cups</span> Water</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">1</span> Onion (chopped)</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">1</span> Green chilli</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">½ tsp</span> Mustard seeds</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">8–10</span> Curry leaves</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">2 tbsp</span> Oil or ghee</li>
+      <li><div class="ing-bullet"></div><span class="ing-amount">To taste</span> Salt</li>
+    </ul>
+    <div class="section-heading">Steps</div>
+    <ul class="steps-list">
+      <li class="step-item"><div class="step-num">1</div><div class="step-text">Dry roast UTPAL Sooji on low flame for 3–4 minutes until lightly golden. Keep aside.</div></li>
+      <li class="step-item"><div class="step-num">2</div><div class="step-text">Heat oil. Add mustard seeds — let them splutter. Add curry leaves and green chilli.</div></li>
+      <li class="step-item"><div class="step-num">3</div><div class="step-text">Add onions and sauté until translucent. Add any vegetables and cook briefly.</div></li>
+      <li class="step-item"><div class="step-num">4</div><div class="step-text">Add water and salt. Bring to boil. Slowly add roasted sooji while stirring continuously.</div></li>
+      <li class="step-item"><div class="step-num">5</div><div class="step-text">Stir on low flame 2–3 minutes until upma comes together. Cover, rest 2 minutes. Serve hot.</div></li>
+    </ul>
+    <div class="utpal-note"><strong>UTPAL Tip:</strong> Roasting sooji first prevents lumps. UTPAL Sooji's even granule size ensures perfectly textured upma every time.</div>
+    <button class="close-btn" onclick="closeRecipe('upma')">← Back to Recipes</button>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-brand">U T P A L</div>
+  <div class="footer-tag">From the Heart of Odisha — Purity in Every Grain</div>
+  <div class="footer-products">
+    <span class="fp">UTPAL Aata</span>
+    <span class="fp">UTPAL Maida</span>
+    <span class="fp">UTPAL Sooji</span>
+  </div>
+  <div class="footer-copy">© 2026 UTPAL. Odisha, India.</div>
+</footer>
+
+<script>
+  function filterCards(tag, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.card').forEach(card => {
+      const tags = card.dataset.tags || '';
+      card.style.display = (tag === 'all' || tags.includes(tag)) ? 'block' : 'none';
+    });
+    closeAllRecipes();
+  }
+
+  function openRecipe(id) {
+    closeAllRecipes();
+    const el = document.getElementById('detail-' + id);
+    if (el) {
+      el.classList.add('open');
+      setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+  }
+
+  function closeRecipe(id) {
+    const el = document.getElementById('detail-' + id);
+    if (el) el.classList.remove('open');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function closeAllRecipes() {
+    document.querySelectorAll('.recipe-detail').forEach(el => el.classList.remove('open'));
+  }
+</script>
+</body>
+</html>
